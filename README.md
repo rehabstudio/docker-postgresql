@@ -9,7 +9,7 @@ This repository contains a [PostgreSQL](http://www.postgresql.org/) (9.3) contai
 Provided you have docker installed, running your Postgres container is simple. This repository contains a `Makefile` that allows you to get up and running quickly with a single command:
 
 ```bash
-$ sudo make start
+$ make start
 ```
 
 This command will build a docker container using the `Dockerfile` provided, start the container in the background, and restore from backup if an appropriately named archive is present in the repository's root (`backup.tar.gz`).
@@ -17,7 +17,7 @@ This command will build a docker container using the `Dockerfile` provided, star
 To stop and remove the container, run:
 
 ```bash
-$ sudo make stop
+$ make stop
 ```
 
 This command will stop the running container, back up Postgres' data to the host system in a tar.gz archive, and finally remove the container entirely. The container is only removed when the backup is succesful, so this command should be safe to run, even if you require persistent data across container rebuilds.
@@ -28,7 +28,7 @@ This command will stop the running container, back up Postgres' data to the host
 To open an SQL shell and connect to the running container (it will be started if necessary), simply run:
 
 ```shell
-$ sudo make psql
+$ make psql
 ```
 
 When asked for a password you should enter `docker`. If required, the username is also `docker`.
@@ -39,7 +39,7 @@ When asked for a password you should enter `docker`. If required, the username i
 To view the database's logs, run:
 
 ```shell
-$ sudo make logs
+$ make logs
 ```
 
 This will display the container's logs, showing any new info as it's logged (similar to `tail -f`).
