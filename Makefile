@@ -1,6 +1,6 @@
 BACKUP_EXISTS = $(shell ls -1 | grep -c backup.tar.gz)
-EXISTS = $(shell sudo docker ps -a | grep -c postgresql-container)
-RUNNING = $(shell sudo docker ps | grep -c postgresql-container)
+EXISTS = $(shell docker ps -a | grep -c postgresql-container)
+RUNNING = $(shell docker ps | grep -c postgresql-container)
 
 help:
 	@echo "start - Run database container for local development and restore from backup (if present)"
@@ -67,5 +67,5 @@ logs:
 ifeq ($(EXISTS),0)
 	@echo "Postgres container not found, logs not available."
 else
-	sudo docker logs -f postgresql-container
+	docker logs -f postgresql-container
 endif
