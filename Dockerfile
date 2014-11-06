@@ -34,6 +34,10 @@ RUN apt-get update
 RUN apt-get -y -q install python-software-properties software-properties-common
 RUN apt-get -y -q install postgresql-9.3 postgresql-client-9.3 postgresql-contrib-9.3
 
+# Add psql script to the path and make it executable
+ADD psql.sh /usr/local/bin/psql.sh
+RUN chmod a+x /usr/local/bin/psql.sh
+
 # Run the rest of the commands as the ``postgres`` user created by the ``postgres-9.3`` package when it was ``apt-get installed``
 USER postgres
 
