@@ -22,10 +22,10 @@ stop:
 	-docker rm postgresql-container
 
 backup:
-	docker run --volumes-from postgresql-storage busybox tar zcfp /backup/backup.tar.gz /etc/postgresql /var/lib/postgresql /var/log/postgresql
+	docker run -v $(CURDIR):/backup --volumes-from postgresql-storage ubuntu tar zcfp /backup/backup.tar.gz /etc/postgresql /var/lib/postgresql /var/log/postgresql
 
 restore:
-	docker run --volumes-from postgresql-storage busybox tar zxfp /backup/backup.tar.gz
+	docker run -v $(CURDIR):/backup --volumes-from postgresql-storage ubuntu tar zxfp /backup/backup.tar.gz
 
 psql:
 	docker run --rm -t -i --volumes-from postgresql-storage --link postgresql-container:pg rehabstudio/postgresql psql.sh
