@@ -6,7 +6,9 @@ help:
 	@echo "restore    - Restore from backup (storage container must exist)."
 	@echo ""
 	@echo "psql       - run a postgresql shell against a running container."
-	@echo "logs       - tail the running container's postgresql log"
+	@echo "             The following arguments can be passed to this target:"
+	@echo "             user=myusername; username used to connect to database"
+	@echo "             db=mydb;         name of database to connect to"
 
 build:
 	docker build -t rehabstudio/postgresql .
@@ -15,20 +17,20 @@ create-storage-container:
 	-docker run -t -i --name "postgresql-storage" rehabstudio/postgresql echo "Creating storage-only container."
 
 run:
-	docker run -t -i --rm -p 127.0.0.1:5432:5432 --volumes-from postgresql-storage --name postgresql-container rehabstudio/postgresql
+	docker run -t -i --rm --volumes-from postgresql-storage --name postgresql-container rehabstudio/postgresql
 
 stop:
 	-docker stop postgresql-container
 	-docker rm postgresql-container
 
 backup:
-	docker run -v $(CURDIR):/backup --volumes-from postgresql-storage ubuntu tar zcfp /backup/backup.tar.gz /etc/postgresql /var/lib/postgresql /var/log/postgresql
+	docker run -v $(CURDIR):/backup --volumes-from postgresql-storage ubuntu tar zcfp /backup/backup.tar.gz /var/lib/postgresql/data
 
 restore:
 	docker run -v $(CURDIR):/backup --volumes-from postgresql-storage ubuntu tar zxfp /backup/backup.tar.gz
 
+# default args for psql
+user = postgres
+db = postgres
 psql:
-	docker run --rm -t -i --volumes-from postgresql-storage --link postgresql-container:pg rehabstudio/postgresql psql.sh
-
-logs:
-	docker logs -f postgresql-container
+	docker exec -t -i postgresql-container psql -U $(user) -d $(db)

@@ -18,7 +18,7 @@ $ make create-storage-container
 Once those complete successfully you should be ready to go:
 
 ```bash
-$ make start
+$ make run
 ```
 
 This command will build a docker container using the `Dockerfile` provided, start the container in the background, and restore from backup if an appropriately named archive is present in the repository's root (`backup.tar.gz`).
@@ -40,18 +40,11 @@ To open an SQL shell and connect to the running container (it will be started if
 $ make psql
 ```
 
-When asked for a password you should enter `docker`. If required, the username is also `docker`.
-
-
-## Viewing database logs
-
-To view the database's logs, run:
+You can change the username and database used like so (the user and database need to have been created previously):
 
 ```shell
-$ make logs
+$ make psql user=someuser db=somedb
 ```
-
-This will display the container's logs, showing any new info as it's logged (similar to `tail -f`).
 
 
 ## It's just Docker!
