@@ -10,14 +10,11 @@ help:
 	@echo "             user=myusername; username used to connect to database"
 	@echo "             db=mydb;         name of database to connect to"
 
-build:
-	docker build -t rehabstudio/postgresql .
-
 create-storage-container:
-	-docker run -t -i --name "postgresql-storage" rehabstudio/postgresql echo "Creating storage-only container."
+	-docker run -t -i --name "postgresql-storage" postgres:9.3 echo "Creating storage-only container."
 
 run:
-	docker run -t -i --rm --volumes-from postgresql-storage --name postgresql-container rehabstudio/postgresql
+	docker run -t -i --rm --volumes-from postgresql-storage --name postgresql-container postgres:9.3
 
 stop:
 	-docker stop postgresql-container

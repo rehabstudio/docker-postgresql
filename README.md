@@ -8,10 +8,9 @@ This repository contains a [PostgreSQL](http://www.postgresql.org/) (9.3) contai
 
 Provided you have docker installed, running your Postgres container is simple. This repository contains a `Makefile` that allows you to get up and running quickly with a single command:
 
-First you'll need to build the container and create a storage-only volume for storing data (persists across restarts/rebuilds of the main container).
+First you'll need to create a storage-only volume for storing data (persists across restarts/rebuilds of the main container).
 
 ```bash
-$ make build
 $ make create-storage-container
 ```
 
