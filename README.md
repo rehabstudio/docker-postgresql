@@ -45,6 +45,22 @@ You can change the username and database used like so (the user and database nee
 $ make psql user=someuser db=somedb
 ```
 
+## Backup and Restore
+
+Backing up your data is easy. Simply stop your running database container (with ctrl-c or `make stop`) and run:
+
+```shell
+$ make backup
+```
+
+This will create a `backup.tar.gz` file in the root of the repository which contains a full database backup. Restoring is similarly simple, again, you first need to stop your running container and issue the command:
+
+```shell
+$ make restore
+```
+
+If you now run your container you should see all data restored from backup.
+
 
 ## It's just Docker!
 
